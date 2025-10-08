@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Emitir Nota{% endblock %}
+{% block content %}
+<h3>Emitir Nota / Recibo</h3>
+<form method="post">
+  <div class="mb-3">
+    <label>Tipo</label>
+    <select name="tipo" class="form-control">
+      <option value="nao_fiscal">Recibo (Não fiscal)</option>
+      <option value="fiscal">Nota Fiscal (NF-e) — se configurado</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Cliente (opcional)</label>
+    <select name="cliente" class="form-control">
+      <option value="">-- Consumidor --</option>
+      {% for c in clients %}
+      <option value="{{ c.id }}">{{ c.nome }} {% if c.cpf_cnpj %} ({{ c.cpf_cnpj }}){% endif %}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <h5>Itens</h5>
+  <div id="items">
+    <div class="item row g-2 mb-2">
+      <div class="col-5"><input name="item-0-desc" placeholder="Descrição" class="form-control"></div>
+      <div class="col-3"><input name="item-0-price" placeholder="Preço" class="form-control"></div>
+      <div class="col-2"><input name="item-0-qty" placeholder="Qtde" class="form-control"></div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addItem()">Adicionar item</button>
+  <hr>
+  <button class="btn btn-primary">Emitir</button>
+</form>
+
+<script>
+let idx = 1;
+function addItem() {
+  const div = document.createElement('div');
+  div.className = 'item row g-2 mb-2';
+  div.innerHTML = `
+    <div class="col-5"><input name="item-${idx}-desc" placeholder="Descrição" class="form-control"></div>
+    <div class="col-3"><input name="item-${idx}-price" placeholder="Preço" class="form-control"></div>
+    <div class="col-2"><input name="item-${idx}-qty" placeholder="Qtde" class="form-control"></div>
+  `;
+  document.getElementById('items').appendChild(div);
+  idx++;
+}
+</script>
+{% endblock %}
