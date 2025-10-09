@@ -7,16 +7,19 @@ from weasyprint import HTML
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notas.db'
 app.config['SECRET_KEY'] = 'chave-secreta'
+
 db.init_app(app)
 
-@app.before_first_request
-def create_tables():
+# Cria o banco de dados ao iniciar o app (compatível com Flask 3.1+)
+with app.app_context():
     db.create_all()
+
 
 @app.route('/')
 def index():
     notas = Invoice.query.order_by(Invoice.data.desc()).all()
     return render_template('index.html', notas=notas)
+
 
 @app.route('/nova_nota', methods=['GET', 'POST'])
 def nova_nota():
@@ -42,7 +45,9 @@ def nova_nota():
 
         flash('Nota criada com sucesso!')
         return redirect(url_for('index'))
+
     return render_template('nova_nota.html')
+
 
 @app.route('/nota/<int:nota_id>')
 def gerar_pdf(nota_id):
@@ -56,5 +61,8 @@ def gerar_pdf(nota_id):
 
     return send_file(BytesIO(pdf), as_attachment=True, download_name=f"nota_{nota.id}.pdf")
 
+
+# 🔥 Rodar localmente ou em produção (Render / Railway)
 if __name__ == '__main__':
-    app.run(debug=True)
+    from waitress import serve
+    serve(app, host='0.0.0.0', port=8080)
