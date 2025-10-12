@@ -1,24 +1,39 @@
-<!doctype html>
-<html lang="pt-br">
+{% extends "base.html" %}
+{% block title %}Painel - Notas{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4">Notas Emitidas</h1>
+    <a href="{{ url_for('nova_nota') }}" class="btn btn-primary">+ Nova Nota</a>
+</div>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Notas Emitidas</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-
-<body class="p-4">
-    <h1 class="mb-4">Notas Emitidas</h1>
-    <a href="{{ url_for('nova_nota') }}" class="btn btn-primary mb-3">+ Nova Nota</a>
-    {% for nota in notas %}
-    <div class="card mb-3 p-3">
-        <h5>{{ nota.tipo|capitalize }} - Nº {{ nota.id }}</h5>
-        <p>Cliente ID: {{ nota.cliente_id }} | Data: {{ nota.data.strftime('%d/%m/%Y %H:%M') }}</p>
-        <a href="{{ url_for('gerar_pdf', nota_id=nota.id) }}" class="btn btn-success">Baixar PDF</a>
-    </div>
-    {% else %}
-    <p>Nenhuma nota criada ainda.</p>
-    {% endfor %}
-</body>
-
-</html>
+{% if notas %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nr</th>
+            <th>Cliente</th>
+            <th>Tipo</th>
+            <th>Data</th>
+            <th>Total</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for n in notas %}
+        <tr>
+            <td>{{ n.numero }}</td>
+            <td>{{ n.cliente.nome if n.cliente else 'Consumidor' }}</td>
+            <td>{{ n.tipo }}</td>
+            <td>{{ n.data.strftime('%d/%m/%Y %H:%M') }}</td>
+            <td>R$ {{ '%.2f'|format(n.total or 0) }}</td>
+            <td>
+                <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('nota_pdf', nota_id=n.id) }}">PDF</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhuma nota ainda.</p>
+{% endif %}
+{% endblock %}

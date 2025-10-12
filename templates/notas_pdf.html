@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .right {
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div>
+      <h1>Nota {{ nota.tipo|capitalize }}</h1>
+      <div>Número: {{ nota.numero }}</div>
+      <div>Data: {{ nota.data.strftime('%d/%m/%Y %H:%M') }}</div>
+    </div>
+    <div>
+      <!-- logo se existir -->
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" style="height:60px;">
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <strong>Cliente:</strong> {{ cliente.nome if cliente else 'Consumidor' }} <br>
+    {% if cliente and cliente.cpf_cnpj %}<strong>CPF/CNPJ:</strong> {{ cliente.cpf_cnpj }}<br>{% endif %}
+    {% if cliente and cliente.endereco %}<strong>Endereço:</strong> {{ cliente.endereco }}<br>{% endif %}
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Quantidade</th>
+        <th>Valor Unit</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in itens %}
+      <tr>
+        <td>{{ i.descricao }}</td>
+        <td>{{ i.quantidade }}</td>
+        <td>R$ {{ '%.2f'|format(i.preco_unit) }}</td>
+        <td class="right">R$ {{ '%.2f'|format(i.preco_unit * i.quantidade) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3 style="text-align:right; margin-top:15px;">Total: R$ {{ '%.2f'|format(total) }}</h3>
+
+</body>
+
+</html>
