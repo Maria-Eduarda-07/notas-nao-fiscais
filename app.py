@@ -148,9 +148,9 @@ def nova_nota():
         flash('Nota criada com sucesso!')
         return redirect(url_for('index'))
 
-    return render_template('nova_nota.html')
-            flash("Nota criada", "success")
-            return redirect(url_for("index"))
+        return render_template('nova_nota.html')
+        flash("Nota criada", "success")
+        return redirect(url_for("index"))
 
         return render_template("nova_nota.html", clients=clients, products=products)
 
@@ -185,7 +185,7 @@ if __name__ == '__main__':
         pdf = HTML(string=html, base_url=request.base_url).write_pdf()
         return send_file(BytesIO(pdf), download_name=f"nota-{inv.numero}.pdf", as_attachment=True)
 
-    return app
+        return app
 
 
 # --- entrypoint para gunicorn ---
