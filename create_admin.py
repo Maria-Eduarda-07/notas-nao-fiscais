@@ -1,20 +1,23 @@
-from app import app, db
+# create_admin.py
+from app import create_app, db
 from models import User
-from werkzeug.security import generate_password_hash
+
+# 🔥 Configura o app e contexto
+app = create_app()
 
 with app.app_context():
+    # Dados do admin
     username = "admin"
-    password = "123456"
+    senha = "123456"  # altere para sua senha segura
 
-    # verifica se já existe
-    existing_user = User.query.filter_by(username=username).first()
-    if existing_user:
-        print("✅ Usuário admin já existe!")
+    # Verifica se o admin já existe
+    if User.query.filter_by(username=username).first():
+        print(f"Usuário '{username}' já existe!")
     else:
-        admin = User(
-            username=username,
-            password=generate_password_hash(password)
-        )
+        # Cria o admin
+        admin = User(username=username)
+        admin.password = senha  # usa o setter do modelo para gerar password_hash
+
         db.session.add(admin)
         db.session.commit()
-        print("🎉 Usuário admin criado com sucesso!")
+        print(f"Usuário admin '{username}' criado com sucesso!")
