@@ -1,12 +1,22 @@
-from app import create_app
-from models import db, User
+from app import app, db
+from models import User
+from werkzeug.security import generate_password_hash
 
-app = create_app()
 with app.app_context():
-    username = input("Usuário admin: ").strip()
-    password = input("Senha admin: ").strip()
-    u = User(username=username, is_admin=True)
-    u.set_password(password)
-    db.session.add(u)
-    db.session.commit()
-    print("Admin criado:", username)
+    username = "admin"
+    email = "admin@admin.com"
+    password = "123456"
+
+    # verifica se já existe
+    existing_user = User.query.filter_by(username=username).first()
+    if existing_user:
+        print("✅ Usuário admin já existe!")
+    else:
+        admin = User(
+            username=username,
+            email=email,
+            password=generate_password_hash(password)
+        )
+        db.session.add(admin)
+        db.session.commit()
+        print("🎉 Usuário admin criado com sucesso!")
