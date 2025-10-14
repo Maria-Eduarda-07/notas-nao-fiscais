@@ -28,22 +28,26 @@ def load_user(user_id):
 
 
 # --- Criação de tabelas no primeiro start ---
-with app.app_context():
-    db.create_all()
-
 from werkzeug.security import generate_password_hash
-from models import User
 
+# cria tabelas e um admin padrão (apenas no startup local)
 with app.app_context():
     db.create_all()
-    if not User.query.filter_by(username="admin").first():
-        admin = User(
+    # Cria admin se não existir
+    try:
+        admin_user = User.query.filter_by(username="admin").first()
+    except Exception:
+        admin_user = None
+    if not admin_user:
+        admin_user = User(
             username="admin",
             password_hash=generate_password_hash("admin123")
         )
-        db.session.add(admin)
+        db.session.add(admin_user)
         db.session.commit()
-        print("✅ Admin criado automaticamente (admin / admin123)")
+        print("✅ Usuário admin criado automaticamente (admin / admin123)")
+    else:
+        print("ℹ️ Usuário admin já existe.")
 
 # --- ROTAS ---
 
