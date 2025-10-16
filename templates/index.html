@@ -1,39 +1,31 @@
 {% extends "base.html" %}
-{% block title %}Painel - Notas{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h1 class="h4">Notas Emitidas</h1>
-    <a href="{{ url_for('nova_nota') }}" class="btn btn-primary">+ Nova Nota</a>
-</div>
+<h2 class="mb-4">Painel de Controle</h2>
 
-{% if notas %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nr</th>
-            <th>Cliente</th>
-            <th>Tipo</th>
-            <th>Data</th>
-            <th>Total</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for n in notas %}
-        <tr>
-            <td>{{ n.numero }}</td>
-            <td>{{ n.cliente.nome if n.cliente else 'Consumidor' }}</td>
-            <td>{{ n.tipo }}</td>
-            <td>{{ n.data.strftime('%d/%m/%Y %H:%M') }}</td>
-            <td>R$ {{ '%.2f'|format(n.total or 0) }}</td>
-            <td>
-                <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('nota_pdf', nota_id=n.id) }}">PDF</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>Nenhuma nota ainda.</p>
-{% endif %}
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Notas Emitidas</h5>
+                <p class="display-6">{{ total_notas }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Clientes</h5>
+                <p class="display-6">{{ total_clientes }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Total Faturado</h5>
+                <p class="display-6">R$ {{ total_faturado }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
