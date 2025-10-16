@@ -2,59 +2,49 @@ import os
 import uuid
 from datetime import datetime
 from io import BytesIO
-from flask import Flask, render_template, request, redirect, url_for, send_file, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from weasyprint import HTML
-from config import Config
-from models import db, User, Client, Product, Invoice, InvoiceItem
-from forms import LoginForm, ClientForm, ProductForm
+from werkzeug.security import generate_password_hash
 
+from config import Config
+from models import db, Cliente, Product, Nota, NotaItem, User
+from forms import LoginForm, ClientForm, ProductForm, NotaForm
 
 # --- Criação da aplicação ---
-app = Flask(__name__, static_folder="static", template_folder="templates")
-app.config.from_object(Config)
-
+app = Flask(__name__)
+app.config.from_object('config.Config')
 db.init_app(app)
 migrate = Migrate(app, db)
 
 # --- Login ---
 login_manager = LoginManager(app)
-login_manager.login_view = "login"
+login_manager.login_view = "login" # type: ignore
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# --- Criação de tabelas no primeiro start ---
-from werkzeug.security import generate_password_hash
-
-# cria tabelas e um admin padrão (apenas no startup local)
+# --- Criação de tabelas e usuário admin no primeiro start ---
 with app.app_context():
     db.create_all()
-    # Cria admin se não existir
-    try:
-        admin_user = User.query.filter_by(username="admin").first()
-    except Exception:
-        admin_user = None
+    admin_user = User.query.filter_by(username="admin").first()
     if not admin_user:
-        admin_user = User(
-            username="admin",
-            password_hash=generate_password_hash("admin123")
-        )
+        admin_user = User(username="admin", password_hash=generate_password_hash("admin123")) # type: ignore
         db.session.add(admin_user)
         db.session.commit()
         print("✅ Usuário admin criado automaticamente (admin / admin123)")
     else:
         print("ℹ️ Usuário admin já existe.")
 
-# --- ROTAS ---
 
+# --- ROTAS ---
 @app.route("/")
 @login_required
 def index():
-    notas = Invoice.query.order_by(Invoice.data.desc()).all()
+    notas = Nota.query.order_by(Nota.data_emissao.desc()).all()
     return render_template("index.html", notas=notas)
 
 
@@ -82,7 +72,7 @@ def logout():
 def clientes():
     form = ClientForm()
     if form.validate_on_submit():
-        c = Client(
+        c = Cliente(
             nome=form.nome.data,
             cpf_cnpj=form.cpf_cnpj.data,
             endereco=form.endereco.data,
@@ -92,7 +82,7 @@ def clientes():
         db.session.commit()
         flash("Cliente salvo com sucesso!", "success")
         return redirect(url_for("clientes"))
-    clients = Client.query.all()
+    clients = Cliente.query.all()
     return render_template("clientes.html", form=form, clients=clients)
 
 
@@ -114,63 +104,69 @@ def produtos():
     return render_template("produtos.html", form=form, produtos=produtos)
 
 
+# --- NOVA ROTA /nova_nota (com NCM, CFOP, ICMS etc.) ---
 @app.route("/nova_nota", methods=["GET", "POST"])
 @login_required
 def nova_nota():
-    clients = Client.query.all()
-    products = Product.query.all()
+    form = NotaForm()
+    clientes = Cliente.query.all()
 
-    if request.method == "POST":
-        tipo = request.form.get("tipo") or "nao_fiscal"
-        cliente_id = request.form.get("cliente") or None
+    if request.method == 'POST':
+        nota = Nota(
+            emitente_cnpj=request.form.get('emitente_cnpj'),
+            destinatario_id=request.form.get('client_id') or None,
+            valor_total=0
+        )
+        db.session.add(nota)
+        db.session.flush()  # para gerar nota.id
 
-        itens = []
+        descricoes = request.form.getlist('item_descricao[]')
+        ncm = request.form.getlist('item_ncm[]')
+        cfop = request.form.getlist('item_cfop[]')
+        qts = request.form.getlist('item_qt[]')
+        unids = request.form.getlist('item_un[]')
+        prices = request.form.getlist('item_price[]')
+        icms = request.form.getlist('item_icms[]')
+
         total = 0
-        idx = 0
-        while True:
-            desc = request.form.get(f"item-{idx}-desc")
-            if not desc:
-                break
-            qty = int(request.form.get(f"item-{idx}-qty") or 1)
-            price = float(request.form.get(f"item-{idx}-price") or 0)
-            total += qty * price
-            itens.append({"descricao": desc, "quantidade": qty, "preco_unit": price})
-            idx += 1
-
-        numero = f"NF-{uuid.uuid4().hex[:8].upper()}"
-        inv = Invoice(numero=numero, tipo=tipo, cliente_id=cliente_id, data=datetime.utcnow(), total=total)
-        db.session.add(inv)
-        db.session.flush()
-
-        for it in itens:
-            item = InvoiceItem(
-                invoice_id=inv.id,
-                descricao=it["descricao"],
-                quantidade=it["quantidade"],
-                preco_unit=it["preco_unit"]
+        for i, desc in enumerate(descricoes):
+            q = float(qts[i])
+            p = float(prices[i])
+            subtotal = q * p
+            item = NotaItem(
+                nota_id=nota.id,
+                descricao=desc,
+                ncm=ncm[i] if i < len(ncm) else '',
+                cfop=cfop[i] if i < len(cfop) else '',
+                quantidade=q,
+                unidade=unids[i] if i < len(unids) else '',
+                valor_unitario=p,
+                icms_aliquota=float(icms[i]) if i < len(icms) and icms[i] else 0
             )
             db.session.add(item)
+            total += subtotal
 
+        nota.valor_total = total
+        nota.status = 'emitida'
         db.session.commit()
-        flash("Nota criada com sucesso!", "success")
-        return redirect(url_for("index"))
+        flash('Nota criada com sucesso', 'success')
+        return redirect(url_for('index'))
 
-    return render_template("nova_nota.html", clients=clients, products=products)
+    return render_template('nova_nota.html', form=form, clientes=clientes)
 
 
 @app.route("/nota/<int:nota_id>/pdf")
 @login_required
 def nota_pdf(nota_id):
-    inv = Invoice.query.get_or_404(nota_id)
-    cliente = inv.cliente
-    itens = inv.itens
-    total = float(inv.total or sum([float(i.preco_unit) * i.quantidade for i in itens]))
-    html = render_template("nota_pdf.html", nota=inv, cliente=cliente, itens=itens, total=total)
+    nota = Nota.query.get_or_404(nota_id)
+    cliente = nota.cliente
+    itens = nota.itens
+    total = float(nota.valor_total or sum([float(i.valor_unitario) * i.quantidade for i in itens]))
+    html = render_template("nota_pdf.html", nota=nota, cliente=cliente, itens=itens, total=total)
     pdf = HTML(string=html, base_url=request.base_url).write_pdf()
-    return send_file(BytesIO(pdf), download_name=f"nota-{inv.numero}.pdf", as_attachment=True)
+    return send_file(BytesIO(pdf), download_name=f"nota-{nota.id}.pdf", as_attachment=True) # type: ignore
 
 
-# --- Rota de teste para Render ---
 @app.route("/ping")
 def ping():
     return "✅ Sistema de Notas App ativo no Render!"

@@ -17,34 +17,47 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-class Client(db.Model):
+class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(200), nullable=False)
-    cpf_cnpj = db.Column(db.String(40))
-    endereco = db.Column(db.String(400))
+    cpf_cnpj = db.Column(db.String(20))
+    endereco = db.Column(db.String(300))
+    uf = db.Column(db.String(2))
+    telefone = db.Column(db.String(30))
     email = db.Column(db.String(200))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    notas = db.relationship('Nota', backref='destinatario', lazy=True)
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(200), nullable=False)
-    preco_unit = db.Column(db.Numeric(12,2), nullable=False, default=0)
+    preco_unit = db.Column(db.Numeric(12, 2), nullable=False, default=0)
     estoque = db.Column(db.Integer, default=0)
 
-class Invoice(db.Model):
+class Nota(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    numero = db.Column(db.String(64), nullable=False, unique=True)
-    tipo = db.Column(db.String(20), nullable=False)  # 'fiscal' ou 'nao_fiscal'
-    cliente_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True)
-    data = db.Column(db.DateTime, default=datetime.utcnow)
-    total = db.Column(db.Numeric(14,2), default=0)
-    xml = db.Column(db.Text)  # para armazenar XML/NFE se integrar
-    cliente = db.relationship('Client', backref='invoices')
-    itens = db.relationship('InvoiceItem', backref='invoice', cascade='all, delete-orphan', lazy=True)
+    chave_acesso = db.Column(db.String(44), unique=True, nullable=True)
+    modelo = db.Column(db.String(2), default="55")  # 55 NF-e, 65 NFC-e
+    serie = db.Column(db.String(10), default="1")
+    numero = db.Column(db.Integer)
+    data_emissao = db.Column(db.DateTime, default=datetime.utcnow)
+    emitente_cnpj = db.Column(db.String(20))
+    destinatario_id = db.Column(db.Integer, db.ForeignKey('cliente.id'))
+    valor_total = db.Column(db.Numeric(12, 2))
+    status = db.Column(db.String(30), default="rascunho")  # rascunho, emitida, cancelada
+    itens = db.relationship('NotaItem', backref='nota', cascade="all, delete-orphan", lazy=True)
 
-class InvoiceItem(db.Model):
+class NotaItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    invoice_id = db.Column(db.Integer, db.ForeignKey('invoice.id'), nullable=False)
+    nota_id = db.Column(db.Integer, db.ForeignKey('nota.id'))
     descricao = db.Column(db.String(300))
-    quantidade = db.Column(db.Integer, default=1)
-    preco_unit = db.Column(db.Numeric(12,2), default=0)
+    ncm = db.Column(db.String(10))
+    cfop = db.Column(db.String(10))
+    quantidade = db.Column(db.Numeric(12, 4))
+    unidade = db.Column(db.String(10))
+    valor_unitario = db.Column(db.Numeric(12, 2))
+    icms_aliquota = db.Column(db.Numeric(5, 2))
 
+    @property
+    def subtotal(self):
+        return self.quantidade * self.valor_unitario
