@@ -1,144 +1,44 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0">Nova Nota — NF-e / NFC-e (pré-padrão SEFAZ)</h3>
-    <a class="btn btn-outline-light btn-sm" href="{{ url_for('notas') }}">Voltar</a>
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-<form id="notaForm" method="post" action="{{ url_for('nova_nota') }}">
-    {{ form.csrf_token }}
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Nota Não Fiscal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 
-    <div class="row g-3">
-        <!-- EMITENTE -->
-        <div class="col-md-6">
-            <div class="card bg-secondary bg-opacity-10 border-secondary">
-                <div class="card-body">
-                    <h5 class="card-title text-light">Emitente</h5>
-                    <div class="mb-2">
-                        <label class="form-label small">Razão Social</label>
-                        <input class="form-control form-control-sm" name="emitente_nome" id="emitente_nome"
-                            value="{{ emitente.nome if emitente else '' }}">
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label class="form-label small">CNPJ</label>
-                            <input class="form-control form-control-sm" name="emitente_cnpj" id="emitente_cnpj"
-                                inputmode="numeric">
-                        </div>
-                        <div class="col-6">
-                            <label class="form-label small">Inscrição Estadual</label>
-                            <input class="form-control form-control-sm" name="emitente_ie" id="emitente_ie">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body class="dark-theme">
 
-        <!-- DESTINATÁRIO -->
-        <div class="col-md-6">
-            <div class="card bg-secondary bg-opacity-10 border-secondary">
-                <div class="card-body">
-                    <h5 class="card-title text-light">Destinatário / Cliente</h5>
-                    <div class="mb-2">
-                        <label class="form-label small">Cliente</label>
-                        <select class="form-select form-select-sm" id="client_id" name="client_id">
-                            <option value="">-- selecione --</option>
-                            {% for c in clientes %}<option value="{{ c.id }}">{{ c.nome }} — {{ c.cpf_cnpj }}</option>{%
-                            endfor %}
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label class="form-label small">CPF / CNPJ</label>
-                            <input class="form-control form-control-sm" name="dest_cpfcnpj" id="dest_cpfcnpj"
-                                inputmode="numeric">
-                        </div>
-                        <div class="col-3">
-                            <label class="form-label small">UF</label>
-                            <input class="form-control form-control-sm" name="dest_uf" id="dest_uf" maxlength="2">
-                        </div>
-                        <div class="col-3">
-                            <label class="form-label small">CEP</label>
-                            <input class="form-control form-control-sm" name="dest_cep" id="dest_cep"
-                                inputmode="numeric">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+        <h1>🧾 Criar Nova Nota</h1>
+        <a href="{{ url_for('index') }}" class="btn">← Voltar</a>
+    </header>
 
-    <!-- ITENS -->
-    <div class="mt-3 card bg-secondary bg-opacity-5 border-secondary">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="mb-0">Itens</h5>
-                <div>
-                    <button type="button" class="btn btn-sm btn-outline-light me-2" id="btnAddItem">+ Item</button>
-                    <button type="button" class="btn btn-sm btn-outline-light" id="btnClearItems">Limpar</button>
-                </div>
+    <main>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.cliente_nome.label }} {{ form.cliente_nome(class="form-control") }}
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-sm table-dark table-striped align-middle" id="itemsTable">
-                    <thead>
-                        <tr class="text-muted small">
-                            <th>Descrição (produto)</th>
-                            <th>NCM</th>
-                            <th>CFOP</th>
-                            <th>Qtd</th>
-                            <th>Un</th>
-                            <th>Valor unit.</th>
-                            <th>%ICMS</th>
-                            <th>Subtotal</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="itemsBody"></tbody>
-                </table>
+            <div class="form-group">
+                {{ form.cliente_cpf.label }} {{ form.cliente_cpf(class="form-control") }}
             </div>
 
-            <!-- Totais -->
-            <div class="row mt-3">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                    <div class="card bg-dark border-secondary p-3">
-                        <div class="d-flex justify-content-between text-muted small">
-                            <div>Subtotal</div>
-                            <div id="total_sub">R$ 0,00</div>
-                        </div>
-                        <div class="d-flex justify-content-between text-muted small">
-                            <div>ICMS estimado</div>
-                            <div id="total_icms">R$ 0,00</div>
-                        </div>
-                        <hr class="border-secondary" />
-                        <div class="d-flex justify-content-between fw-semibold fs-5">
-                            <div>Total</div>
-                            <div id="total_geral">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                {{ form.descricao.label }} {{ form.descricao(class="form-control") }}
             </div>
 
-            <div class="mt-3 d-flex gap-2">
-                <button type="submit" class="btn btn-success">Salvar e Gerar (XML)</button>
-                <button type="button" class="btn btn-outline-light" id="btnPreview">Preview DANFE</button>
+            <div class="form-group">
+                {{ form.valor_total.label }} {{ form.valor_total(class="form-control") }}
             </div>
-        </div>
-    </div>
-</form>
 
-<!-- MODAL DANFE -->
-<div class="modal fade" id="danfeModal" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content bg-dark text-light">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title">Preview DANFE (simplificado)</h5>
-                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body" id="danfeBody"></div>
-        </div>
-    </div>
-</div>
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        </form>
 
-{% endblock %}
+    </main>
+
+</body>
+
+</html>

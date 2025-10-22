@@ -1,0 +1,744 @@
+2025-10-22 01:51:50,462 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 01:51:50,462 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 01:51:59,170 [INFO] 127.0.0.1 - - [22/Oct/2025 01:51:59] "GET / HTTP/1.1" 200 -
+2025-10-22 01:51:59,279 [INFO] 127.0.0.1 - - [22/Oct/2025 01:51:59] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 01:51:59,363 [INFO] 127.0.0.1 - - [22/Oct/2025 01:51:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-22 01:52:02,174 [INFO] 127.0.0.1 - - [22/Oct/2025 01:52:02] "GET /nova_nota HTTP/1.1" 200 -
+2025-10-22 01:52:02,226 [INFO] 127.0.0.1 - - [22/Oct/2025 01:52:02] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 01:52:28,816 [INFO] Nota não fiscal Nº 1 emitida com sucesso!
+2025-10-22 01:52:28,819 [INFO] 127.0.0.1 - - [22/Oct/2025 01:52:28] "[32mPOST /nova_nota HTTP/1.1[0m" 302 -
+2025-10-22 01:52:28,841 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 35, in top-level template code
+    <td>R$ {{ "%.2f"|format(nota.valor) }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\filters.py", line 1043, in do_format
+    return soft_str(value) % (kwargs or args)
+           ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+jinja2.exceptions.UndefinedError: 'models.NotaNaoFiscal object' has no attribute 'valor'
+2025-10-22 01:52:28,896 [INFO] 127.0.0.1 - - [22/Oct/2025 01:52:28] "GET / HTTP/1.1" 200 -
+2025-10-22 01:52:28,978 [INFO] 127.0.0.1 - - [22/Oct/2025 01:52:28] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 01:52:34,792 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 35, in top-level template code
+    <td>R$ {{ "%.2f"|format(nota.valor) }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\filters.py", line 1043, in do_format
+    return soft_str(value) % (kwargs or args)
+           ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+jinja2.exceptions.UndefinedError: 'models.NotaNaoFiscal object' has no attribute 'valor'
+2025-10-22 01:52:34,798 [INFO] 127.0.0.1 - - [22/Oct/2025 01:52:34] "GET / HTTP/1.1" 200 -
+2025-10-22 01:52:34,850 [INFO] 127.0.0.1 - - [22/Oct/2025 01:52:34] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 01:57:55,683 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 35, in top-level template code
+    <td>R$ {{ "%.2f"|format(nota.valor_total) }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\filters.py", line 1043, in do_format
+    return soft_str(value) % (kwargs or args)
+           ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+jinja2.exceptions.UndefinedError: 'models.NotaNaoFiscal object' has no attribute 'valor'
+2025-10-22 01:57:55,796 [INFO] 127.0.0.1 - - [22/Oct/2025 01:57:55] "GET / HTTP/1.1" 200 -
+2025-10-22 01:57:55,852 [INFO] 127.0.0.1 - - [22/Oct/2025 01:57:55] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 01:57:57,347 [INFO] 127.0.0.1 - - [22/Oct/2025 01:57:57] "GET /nova_nota HTTP/1.1" 200 -
+2025-10-22 01:57:57,402 [INFO] 127.0.0.1 - - [22/Oct/2025 01:57:57] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 02:00:56,015 [INFO] Nota não fiscal Nº 2 emitida com sucesso!
+2025-10-22 02:00:56,021 [INFO] 127.0.0.1 - - [22/Oct/2025 02:00:56] "[32mPOST /nova_nota HTTP/1.1[0m" 302 -
+2025-10-22 02:00:56,035 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 35, in top-level template code
+    <td>R$ {{ "%.2f"|format(nota.valor_total) }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\filters.py", line 1043, in do_format
+    return soft_str(value) % (kwargs or args)
+           ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+jinja2.exceptions.UndefinedError: 'models.NotaNaoFiscal object' has no attribute 'valor'
+2025-10-22 02:00:56,042 [INFO] 127.0.0.1 - - [22/Oct/2025 02:00:56] "GET / HTTP/1.1" 200 -
+2025-10-22 02:00:56,140 [INFO] 127.0.0.1 - - [22/Oct/2025 02:00:56] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 02:01:19,566 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 02:01:19,567 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 02:01:32,076 [INFO] 127.0.0.1 - - [22/Oct/2025 02:01:32] "GET / HTTP/1.1" 200 -
+2025-10-22 02:01:32,153 [INFO] 127.0.0.1 - - [22/Oct/2025 02:01:32] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 02:01:43,569 [INFO] 127.0.0.1 - - [22/Oct/2025 02:01:43] "GET /nova_nota HTTP/1.1" 200 -
+2025-10-22 02:01:43,623 [INFO] 127.0.0.1 - - [22/Oct/2025 02:01:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 02:02:05,720 [INFO] Nota não fiscal Nº 3 emitida com sucesso!
+2025-10-22 02:02:05,723 [INFO] 127.0.0.1 - - [22/Oct/2025 02:02:05] "[32mPOST /nova_nota HTTP/1.1[0m" 302 -
+2025-10-22 02:02:05,740 [INFO] 127.0.0.1 - - [22/Oct/2025 02:02:05] "GET / HTTP/1.1" 200 -
+2025-10-22 02:02:05,821 [INFO] 127.0.0.1 - - [22/Oct/2025 02:02:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-10-22 02:22:37,412 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 02:22:37,413 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 02:22:41,250 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 38, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('clientes') }}">Clientes</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'clientes'. Did you mean 'index' instead?
+2025-10-22 02:22:41,302 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 38, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('clientes') }}">Clientes</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'clientes'. Did you mean 'index' instead?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 48, in index
+    return render_template("lista_notas.html", notas=[])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 38, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('clientes') }}">Clientes</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'clientes'. Did you mean 'index' instead?
+2025-10-22 02:22:41,307 [INFO] 127.0.0.1 - - [22/Oct/2025 02:22:41] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-10-22 02:32:22,618 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 02:32:22,619 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 02:32:27,054 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 38, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('notas') }}">Notas</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'notas'. Did you mean 'nota_pdf' instead?
+2025-10-22 02:32:27,068 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 38, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('notas') }}">Notas</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'notas'. Did you mean 'nota_pdf' instead?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 48, in index
+    return render_template("lista_notas.html", notas=[])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 38, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('notas') }}">Notas</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'notas'. Did you mean 'nota_pdf' instead?
+2025-10-22 02:32:27,079 [INFO] 127.0.0.1 - - [22/Oct/2025 02:32:27] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-10-22 02:35:24,467 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 02:35:24,468 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 02:35:28,870 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 39, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('relatorios') }}">Relatórios</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'relatorios'. Did you mean 'static' instead?
+2025-10-22 02:35:28,878 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 39, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('relatorios') }}">Relatórios</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'relatorios'. Did you mean 'static' instead?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 48, in index
+    return render_template("lista_notas.html", notas=[])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 39, in top-level template code
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('relatorios') }}">Relatórios</a></li>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'relatorios'. Did you mean 'static' instead?
+2025-10-22 02:35:28,883 [INFO] 127.0.0.1 - - [22/Oct/2025 02:35:28] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-10-22 02:39:41,110 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 02:39:41,112 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 02:39:44,559 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 42, in top-level template code
+    {% if current_user.is_authenticated %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'current_user' is undefined
+2025-10-22 02:39:44,562 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 44, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 42, in top-level template code
+    {% if current_user.is_authenticated %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'current_user' is undefined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 48, in index
+    return render_template("lista_notas.html", notas=[])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 42, in top-level template code
+    {% if current_user.is_authenticated %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'current_user' is undefined
+2025-10-22 02:39:44,567 [INFO] 127.0.0.1 - - [22/Oct/2025 02:39:44] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-10-22 02:49:25,653 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 02:49:25,654 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 02:49:31,485 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 58, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 44, in top-level template code
+    <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Sair</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'logout'. Did you mean 'nova_nota' instead?
+2025-10-22 02:49:31,492 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 58, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 44, in top-level template code
+    <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Sair</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'logout'. Did you mean 'nova_nota' instead?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 62, in index
+    return render_template("lista_notas.html", notas=[])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 44, in top-level template code
+    <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Sair</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'logout'. Did you mean 'nova_nota' instead?
+2025-10-22 02:49:31,496 [INFO] 127.0.0.1 - - [22/Oct/2025 02:49:31] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-10-22 02:53:17,222 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 02:53:17,222 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 02:53:21,488 [ERROR] Erro ao carregar lista de notas
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 58, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 44, in top-level template code
+    <!-- <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Sair</a> -->
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'logout'. Did you mean 'nova_nota' instead?
+2025-10-22 02:53:21,492 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 58, in index
+    return render_template("lista_notas.html", notas=notas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 44, in top-level template code
+    <!-- <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Sair</a> -->
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'logout'. Did you mean 'nova_nota' instead?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\inesb\Documents\DUDA\notas-app\app.py", line 62, in index
+    return render_template("lista_notas.html", notas=[])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\lista_notas.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\inesb\Documents\DUDA\notas-app\templates\base.html", line 44, in top-level template code
+    <!-- <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Sair</a> -->
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2034, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\flask\app.py", line 2023, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\inesb\Documents\DUDA\notas-app\.venv\Lib\site-packages\werkzeug\routing\map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'logout'. Did you mean 'nova_nota' instead?
+2025-10-22 02:53:21,497 [INFO] 127.0.0.1 - - [22/Oct/2025 02:53:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-10-22 20:24:07,673 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-22 20:24:07,675 [INFO] [33mPress CTRL+C to quit[0m
+2025-10-22 20:24:11,593 [INFO] 127.0.0.1 - - [22/Oct/2025 20:24:11] "GET / HTTP/1.1" 200 -
+2025-10-22 20:24:11,812 [INFO] 127.0.0.1 - - [22/Oct/2025 20:24:11] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-10-22 20:24:12,066 [INFO] 127.0.0.1 - - [22/Oct/2025 20:24:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-22 20:24:19,476 [INFO] 127.0.0.1 - - [22/Oct/2025 20:24:19] "GET /nota/3/pdf HTTP/1.1" 200 -
+2025-10-22 20:24:28,046 [INFO] 127.0.0.1 - - [22/Oct/2025 20:24:28] "GET /nota/3/pdf HTTP/1.1" 200 -

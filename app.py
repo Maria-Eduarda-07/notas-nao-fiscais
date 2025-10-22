@@ -1,178 +1,135 @@
-import os
-import uuid
-from datetime import datetime
-from io import BytesIO
-from flask import Flask, render_template, request, redirect, url_for, flash, send_file
-from flask_migrate import Migrate
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from weasyprint import HTML
-from werkzeug.security import generate_password_hash
+from flask_login import AnonymousUserMixin
+from flask import Flask, render_template, redirect, url_for, flash, send_file
+from models import db, NotaNaoFiscal
+from forms import NotaNaoFiscalForm
+from utils.gerar_pdf import gerar_pdf
+import io
+import logging
 
-from config import Config
-from models import db, Cliente, Product, Nota, NotaItem, User
-from forms import LoginForm, ClientForm, ProductForm, NotaForm
-
-# --- Criação da aplicação ---
+# ===============================
+# ⚙️ Configuração básica do Flask
+# ===============================
 app = Flask(__name__)
-app.config.from_object('config.Config')
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///notas.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = "segredo"
+
+# ===============================
+
+
+@app.context_processor
+def inject_current_user():
+    # Garante que 'current_user' sempre existe, mesmo sem Flask-Login
+    class DummyUser(AnonymousUserMixin):
+        def is_authenticated(self) -> bool:
+            return False
+            name = "Visitante"
+    return {'current_user': DummyUser()}
+
+
+# Inicializa banco de dados
 db.init_app(app)
-migrate = Migrate(app, db)
-
-# --- Login ---
-login_manager = LoginManager(app)
-login_manager.login_view = "login" # type: ignore
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
-# --- Criação de tabelas e usuário admin no primeiro start ---
 with app.app_context():
     db.create_all()
-    admin_user = User.query.filter_by(username="admin").first()
-    if not admin_user:
-        admin_user = User(username="admin", password_hash=generate_password_hash("admin123")) # type: ignore
-        db.session.add(admin_user)
-        db.session.commit()
-        print("✅ Usuário admin criado automaticamente (admin / admin123)")
-    else:
-        print("ℹ️ Usuário admin já existe.")
+
+# ===============================
+# 🧠 Configuração de logs
+# ===============================
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("app.log", encoding="utf-8"),
+        logging.StreamHandler()
+    ]
+)
+
+# ===============================
+# 🏠 Rota principal: lista notas
+# ===============================
 
 
-# --- ROTAS ---
 @app.route("/")
-@login_required
 def index():
-    notas = Nota.query.order_by(Nota.data_emissao.desc()).all()
-    return render_template("index.html", notas=notas)
+    """Exibe todas as notas não fiscais emitidas"""
+    try:
+        notas = NotaNaoFiscal.query.order_by(
+            NotaNaoFiscal.data_emissao.desc()).all()
+        return render_template("lista_notas.html", notas=notas)
+    except Exception as e:
+        logging.exception("Erro ao carregar lista de notas")
+        flash("Erro ao carregar as notas. Verifique os logs.", "danger")
+        return render_template("lista_notas.html", notas=[])
+
+# ===============================
+# 🧾 Rota: criar nova nota
+# ===============================
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user and user.check_password(form.password.data):
-            login_user(user)
-            return redirect(url_for("index"))
-        flash("Usuário ou senha inválidos", "danger")
-    return render_template("login.html", form=form)
-
-
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("login"))
-
-
-@app.route("/clientes", methods=["GET", "POST"])
-@login_required
-def clientes():
-    form = ClientForm()
-    if form.validate_on_submit():
-        c = Cliente(
-            nome=form.nome.data,
-            cpf_cnpj=form.cpf_cnpj.data,
-            endereco=form.endereco.data,
-            email=form.email.data
-        )
-        db.session.add(c)
-        db.session.commit()
-        flash("Cliente salvo com sucesso!", "success")
-        return redirect(url_for("clientes"))
-    clients = Cliente.query.all()
-    return render_template("clientes.html", form=form, clients=clients)
-
-
-@app.route("/produtos", methods=["GET", "POST"])
-@login_required
-def produtos():
-    form = ProductForm()
-    if form.validate_on_submit():
-        p = Product(
-            nome=form.nome.data,
-            preco_unit=form.preco_unit.data,
-            estoque=form.estoque.data or 0
-        )
-        db.session.add(p)
-        db.session.commit()
-        flash("Produto salvo com sucesso!", "success")
-        return redirect(url_for("produtos"))
-    produtos = Product.query.all()
-    return render_template("produtos.html", form=form, produtos=produtos)
-
-
-# --- NOVA ROTA /nova_nota (com NCM, CFOP, ICMS etc.) ---
 @app.route("/nova_nota", methods=["GET", "POST"])
-@login_required
 def nova_nota():
-    form = NotaForm()
-    clientes = Cliente.query.all()
+    """Cria uma nova nota não fiscal"""
+    form = NotaNaoFiscalForm()
 
-    if request.method == 'POST':
-        nota = Nota(
-            emitente_cnpj=request.form.get('emitente_cnpj'),
-            destinatario_id=request.form.get('client_id') or None,
-            valor_total=0
-        )
-        db.session.add(nota)
-        db.session.flush()  # para gerar nota.id
+    if form.validate_on_submit():
+        try:
+            # Gera o número da nota
+            ultimo = NotaNaoFiscal.query.order_by(
+                NotaNaoFiscal.numero.desc()).first()
+            numero = (ultimo.numero + 1) if ultimo else 1
 
-        descricoes = request.form.getlist('item_descricao[]')
-        ncm = request.form.getlist('item_ncm[]')
-        cfop = request.form.getlist('item_cfop[]')
-        qts = request.form.getlist('item_qt[]')
-        unids = request.form.getlist('item_un[]')
-        prices = request.form.getlist('item_price[]')
-        icms = request.form.getlist('item_icms[]')
-
-        total = 0
-        for i, desc in enumerate(descricoes):
-            q = float(qts[i])
-            p = float(prices[i])
-            subtotal = q * p
-            item = NotaItem(
-                nota_id=nota.id,
-                descricao=desc,
-                ncm=ncm[i] if i < len(ncm) else '',
-                cfop=cfop[i] if i < len(cfop) else '',
-                quantidade=q,
-                unidade=unids[i] if i < len(unids) else '',
-                valor_unitario=p,
-                icms_aliquota=float(icms[i]) if i < len(icms) and icms[i] else 0
+            # Cria objeto da nota
+            nota = NotaNaoFiscal(
+                numero=numero,
+                cliente_nome=form.cliente_nome.data,
+                cliente_cpf=form.cliente_cpf.data,
+                descricao=form.descricao.data,
+                valor_total=form.valor_total.data,
             )
-            db.session.add(item)
-            total += subtotal
 
-        nota.valor_total = total
-        nota.status = 'emitida'
-        db.session.commit()
-        flash('Nota criada com sucesso', 'success')
-        return redirect(url_for('index'))
+            # Salva no banco
+            db.session.add(nota)
+            db.session.commit()
 
-    return render_template('nova_nota.html', form=form, clientes=clientes)
+            logging.info(f"Nota não fiscal Nº {numero} emitida com sucesso!")
+            flash(
+                f"Nota não fiscal Nº {numero} emitida com sucesso!", "success")
+
+            return redirect(url_for("index"))
+
+        except Exception as e:
+            logging.exception("Erro ao salvar nova nota")
+            flash("Erro ao emitir nota. Verifique os logs.", "danger")
+            db.session.rollback()
+
+    return render_template("nova_nota.html", form=form)
+
+# ===============================
+# 📄 Rota: gerar PDF da nota
+# ===============================
 
 
 @app.route("/nota/<int:nota_id>/pdf")
-@login_required
 def nota_pdf(nota_id):
-    nota = Nota.query.get_or_404(nota_id)
-    cliente = nota.cliente
-    itens = nota.itens
-    total = float(nota.valor_total or sum([float(i.valor_unitario) * i.quantidade for i in itens]))
-    html = render_template("nota_pdf.html", nota=nota, cliente=cliente, itens=itens, total=total)
-    pdf = HTML(string=html, base_url=request.base_url).write_pdf()
-    return send_file(BytesIO(pdf), download_name=f"nota-{nota.id}.pdf", as_attachment=True) # type: ignore
+    """Gera e faz download do PDF da nota"""
+    try:
+        nota = NotaNaoFiscal.query.get_or_404(nota_id)
+        pdf_bytes = gerar_pdf(nota)
+        return send_file(
+            io.BytesIO(pdf_bytes),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"nota_{nota.numero}.pdf"
+        )
+    except Exception as e:
+        logging.exception("Erro ao gerar PDF da nota")
+        flash("Erro ao gerar PDF. Verifique os logs.", "danger")
+        return redirect(url_for("index"))
 
 
-@app.route("/ping")
-def ping():
-    return "✅ Sistema de Notas App ativo no Render!"
-
-
-# --- Execução local ---
+# ===============================
+# 🚀 Inicialização do servidor
+# ===============================
 if __name__ == "__main__":
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=8080)
+    logging.info("Servidor Flask iniciado em modo debug.")
+    app.run(debug=True)
